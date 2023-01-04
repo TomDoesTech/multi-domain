@@ -1,0 +1,19 @@
+{
+    on_demand_tls {
+        ask http://tls-check:5555
+        
+        burst 5
+        interval 2m
+    }
+}
+
+
+https:// {
+    tls {
+        on_demand
+    }
+
+    reverse_proxy redirect:4000 {
+        header_down Strict-Transport-Security max-age=31536000;
+    }
+}
